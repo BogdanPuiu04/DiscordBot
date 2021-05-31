@@ -2,6 +2,9 @@ package com.example.discordpa.listeners.implementation;
 
 public class GetUrlFetcher {
 
+
+    //All the url used
+
     public static String getUrlForTopic(String topic){
         if(topic.equals("java"))
         {

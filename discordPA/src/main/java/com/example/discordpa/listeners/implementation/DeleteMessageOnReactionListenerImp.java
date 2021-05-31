@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DeleteMessageOnReactionListenerImp implements DeleteMessageOnReactionListener {
 
+
+    //Delete on reaction with thumbs down
     @Override
     public void onReactionAdd(ReactionAddEvent reactionAddEvent)
     {

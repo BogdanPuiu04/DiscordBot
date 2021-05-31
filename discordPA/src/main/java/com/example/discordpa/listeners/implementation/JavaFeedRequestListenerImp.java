@@ -35,6 +35,7 @@ public class JavaFeedRequestListenerImp implements JavaFeedRequestListener {
                         int count = Integer.parseInt(messages[2]);
                         if (count <= 10 && url != null) {
                             try {
+                                //Feed type using rss
                                 SyndFeed feed = new SyndFeedInput().build(new XmlReader(new URL(url)));
                                 feed.setFeedType("rss_2.0");
 
@@ -45,7 +46,11 @@ public class JavaFeedRequestListenerImp implements JavaFeedRequestListener {
                                     int red = (int) Math.floor(Math.random() * 255);
                                     int green = (int) Math.floor(Math.random() * 255);
                                     int blue = (int) Math.floor(Math.random() * 255);
+                                    //It parses the entry for every single obj
                                     SyndEntry entry = (SyndEntry) o;
+
+                                    //Every article ends with "To read this.." so it got removed
+
                                     String article = Jsoup.parse(entry.getDescription().getValue()).text();
                                     String articleComplex = article.replace("To read this article in full, please click here", " ");
                                     messagingService.sendFeed(entry.getTitle(),
@@ -66,18 +71,18 @@ public class JavaFeedRequestListenerImp implements JavaFeedRequestListener {
                             if (count > 10) {
                                 messageCreateEvent.getChannel().sendMessage("You can only get 10 articles.");
                             } else {
-                                messageCreateEvent.getChannel().sendMessage("Invalid topic. Use `!topics` to display all topics.");
+                                messageCreateEvent.getChannel().sendMessage("❌ Invalid topic. Use `!topics` to display all topics.❌");
                             }
                         }
                     } else {
                         if (messages[1].equals("java")) {
-                            messageCreateEvent.getChannel().sendMessage("You need to use `!feed [topic] [number of topics]` in order to a specific number of articles");
+                            messageCreateEvent.getChannel().sendMessage("❌ You need to use `!feed [topic] [number of topics]` in order to a specific number of articles ❌");
                         }
 
 
                     }
                 }
-            else  messageCreateEvent.getChannel().sendMessage("You need to use `!feed [topic] [number of topics]` in order to a specific number of articles");
+            else  messageCreateEvent.getChannel().sendMessage("❌ You need to use `!feed [topic] [number of topics]` in order to a specific number of articles ❌");
             }
     }
 }
