@@ -1,12 +1,10 @@
 # DiscordBot
 
-Technologies used in this project : 
-  -Spring
-  -Discord API (Javacord)
-  -ROME (for RSS)
-  -JSoup ( to parse XML articles)
-  -Hibernate
-  -MySQL(to stock the answers about some Java)
+Technologies used in this project :  Spring  ,Discord API (Javacord)  
+ROME (for RSS)  
+-JSoup ( to parse XML articles)  
+-Hibernate  
+-MySQL(to stock the answers about some Java)
   
  HOW TO USE IT: 
   !commands  -- the bot will display all the commands in a message type MessageBuilder you can use
