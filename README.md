@@ -1,17 +1,19 @@
 # DiscordBot
 
-Technologies used in this project :  Spring  ,Discord API (Javacord)  
-ROME (for RSS)  
--JSoup ( to parse XML articles)  
--Hibernate  
--MySQL(to stock the answers about some Java)
+Technologies used in this project :  
+  -Spring  
+  -Discord API (Javacord)  
+  -ROME (for RSS)  
+  -JSoup ( to parse XML articles)  
+  -Hibernate  
+  -MySQL(to stock the answers about some Java)
   
- HOW TO USE IT: 
-  !commands  -- the bot will display all the commands in a message type MessageBuilder you can use
-  !topics    -- the bot will display all the topics for a feed
-  !feed [topic] [number of articles]  -- the bot will retrieve a specific number of articles (starting from the newest) with : The title, The Author, a short description and a link
-  !question  -- the bot will display all the keywords you can use to ask him a question.
-  !question [keyword]  -- the bot will answer to your question with a short information.
+ HOW TO USE IT:   
+  !commands  -- the bot will display all the commands in a message type MessageBuilder you can use  
+  !topics    -- the bot will display all the topics for a feed  
+  !feed [topic] [number of articles]  -- the bot will retrieve a specific number of articles (starting from the newest) with : The title, The Author, a short description and a link  
+  !question  -- the bot will display all the keywords you can use to ask him a question.  
+  !question [keyword]  -- the bot will answer to your question with a short information.  
   
   HOW IT WORKS: 
     The discord api has specific listeners that will analyze your command and pass it on to process it. For the feed command , a SyndFeed will be created ( syndication from ROME),
