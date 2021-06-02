@@ -26,63 +26,64 @@ public class JavaFeedRequestListenerImp implements JavaFeedRequestListener {
 
     @Override
     public void onMessageCreate(MessageCreateEvent messageCreateEvent) {
-            if (messageCreateEvent.getMessageContent().startsWith("!feed")) {
-                if(messageCreateEvent.getMessageContent().length()>5) {
-                    String[] messages = messageCreateEvent.getMessageContent().split(" ");
-                    if (messages.length > 2) {
-                        String url;
-                        url = GetUrlFetcher.getUrlForTopic(messages[1]);
-                        int count = Integer.parseInt(messages[2]);
-                        if (count <= 10 && url != null) {
-                            try {
-                                //Feed type using rss
-                                SyndFeed feed = new SyndFeedInput().build(new XmlReader(new URL(url)));
-                                feed.setFeedType("rss_2.0");
+        if (messageCreateEvent.getMessageContent().startsWith("!feed")) {
+            if (messageCreateEvent.getMessageContent().length() > 5) {
+                String[] messages = messageCreateEvent.getMessageContent().split(" ");
+                if (messages.length > 2) {
+                    String url;
+                    url = GetUrlFetcher.getUrlForTopic(messages[1]);
+                    int count = Integer.parseInt(messages[2]);
+                    if (count <= 10 && url != null) {
+                        try {
+                            //Feed type using rss
+                            SyndFeed feed = new SyndFeedInput().build(new XmlReader(new URL(url)));
+                            feed.setFeedType("rss_2.0");
 
-                                for (Object o : feed.getEntries()) {
-                                    if (count == 0) {
-                                        break;
-                                    }
-                                    int red = (int) Math.floor(Math.random() * 255);
-                                    int green = (int) Math.floor(Math.random() * 255);
-                                    int blue = (int) Math.floor(Math.random() * 255);
-                                    //It parses the entry for every single obj
-                                    SyndEntry entry = (SyndEntry) o;
-
-                                    //Every article ends with "To read this.." so it got removed
-
-                                    String article = Jsoup.parse(entry.getDescription().getValue()).text();
-                                    String articleComplex = article.replace("To read this article in full, please click here", " ");
-                                    messagingService.sendFeed(entry.getTitle(),
-                                            "Author: " + entry.getAuthor(),
-                                            articleComplex,
-                                            entry.getPublishedDate(),
-                                            feed.getImage().getUrl(),
-                                            messageCreateEvent.getChannel(),
-                                            entry.getLink(),
-                                            new Color(red, green, blue)
-                                    );
-                                    count--;
+                            for (Object o : feed.getEntries()) {
+                                if (count == 0) {
+                                    break;
                                 }
-                            } catch (FeedException | IOException e) {
-                                e.printStackTrace();
+                                int red = (int) Math.floor(Math.random() * 255);
+                                int green = (int) Math.floor(Math.random() * 255);
+                                int blue = (int) Math.floor(Math.random() * 255);
+                                //It parses the entry for every single obj
+                                SyndEntry entry = (SyndEntry) o;
+
+                                //Every article ends with "To read this.." so it got removed
+
+                                String article = Jsoup.parse(entry.getDescription().getValue()).text();
+                                String articleComplex = article.replace("To read this article in full, please click here", " ");
+                                messagingService.sendFeed(entry.getTitle(),
+                                        "Author: " + entry.getAuthor(),
+                                        articleComplex,
+                                        entry.getPublishedDate(),
+                                        feed.getImage().getUrl(),
+                                        messageCreateEvent.getChannel(),
+                                        entry.getLink(),
+                                        new Color(red, green, blue),
+                                        true
+                                );
+                                count--;
                             }
-                        } else {
-                            if (count > 10) {
-                                messageCreateEvent.getChannel().sendMessage("You can only get 10 articles.");
-                            } else {
-                                messageCreateEvent.getChannel().sendMessage("❌ Invalid topic. Use `!topics` to display all topics.❌");
-                            }
+                        } catch (FeedException | IOException e) {
+                            e.printStackTrace();
                         }
                     } else {
-                        if (messages[1].equals("java")) {
-                            messageCreateEvent.getChannel().sendMessage("❌ You need to use `!feed [topic] [number of topics]` in order to a specific number of articles ❌");
+                        if (count > 10) {
+                            messageCreateEvent.getChannel().sendMessage("❌ You can only get `10 articles`. ❌");
+                        } else {
+                            messageCreateEvent.getChannel().sendMessage("❌ Invalid topic. Use `!topics` to display all topics.❌");
                         }
-
-
                     }
+                } else {
+                    if (messages[1].equals("java")) {
+                        messageCreateEvent.getChannel().sendMessage("❌ You need to use `!feed [topic] [number of topics]` in order to a specific number of articles ❌");
+                    }
+
+
                 }
-            else  messageCreateEvent.getChannel().sendMessage("❌ You need to use `!feed [topic] [number of topics]` in order to a specific number of articles ❌");
-            }
+            } else
+                messageCreateEvent.getChannel().sendMessage("❌ You need to use `!feed [topic] [number of topics]` in order to a specific number of articles ❌");
+        }
     }
 }

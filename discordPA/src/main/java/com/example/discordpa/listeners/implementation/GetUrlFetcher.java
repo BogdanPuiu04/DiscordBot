@@ -5,23 +5,20 @@ public class GetUrlFetcher {
 
     //All the url used
 
-    public static String getUrlForTopic(String topic){
-        if(topic.equals("java"))
-        {
+    public static String getUrlForTopic(String topic) {
+        if (topic.equals("java")) {
             return "https://www.infoworld.com/category/java/index.rss";
-        }
-        else {
-            if(topic.equals("programming")) {
-               return  "https://www.thecrazyprogrammer.com/feed";
+        } else {
+            if (topic.equals("programming")) {
+                return "https://www.thecrazyprogrammer.com/feed";
             }
-            if(topic.equals("python"))
-            {
-              return "https://blog.finxter.com/feed";
+            if (topic.equals("python")) {
+                return "https://blog.finxter.com/feed";
             }
-            if(topic.equals("c#")){
+            if (topic.equals("c#")) {
                 return "https://devblogs.microsoft.com/dotnet/feed/";
             }
-            if(topic.equals("kotlin")){
+            if (topic.equals("kotlin")) {
                 return "https://blog.karumi.com/rss/";
             }
         }

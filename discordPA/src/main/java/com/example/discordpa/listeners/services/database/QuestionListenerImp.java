@@ -1,19 +1,15 @@
 package com.example.discordpa.listeners.services.database;
 
 import com.example.discordpa.listeners.QuestionListener;
-import com.example.discordpa.listeners.services.MessagingService;
 import com.example.discordpa.questions.Question;
 import org.javacord.api.event.message.MessageCreateEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
-import java.util.List;
 
 
 @Component
 public class QuestionListenerImp implements QuestionListener {
-
 
 
     //Getting the questions
@@ -28,7 +24,8 @@ public class QuestionListenerImp implements QuestionListener {
                     Question question = FindByInfo.findQuestion(keyword);
                     if (!(question.getInfo() == null)) {
                         messageCreateEvent.getChannel().sendMessage("Info about `" + question.getKeyword() + "`: " + question.getInfo());
-                    }
+                    } else
+                        messageCreateEvent.getChannel().sendMessage("❌ Unknown keyword `[" + messages[1] + "]`.Please use only the named keyword. To display all keywords use `!question` ❌");
                 } catch (SQLException throwable) {
                     throwable.printStackTrace();
                 }

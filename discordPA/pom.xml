@@ -44,11 +44,7 @@
             <version>3.3.0</version>
             <type>pom</type>
         </dependency>
-        <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-            <version>4.2.1_265</version>
-        </dependency>
+
         <!-- https://mvnrepository.com/artifact/rome/rome-fetcher -->
         <dependency>
             <groupId>rome</groupId>

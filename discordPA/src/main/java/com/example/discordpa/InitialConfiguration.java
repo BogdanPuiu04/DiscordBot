@@ -1,6 +1,9 @@
 package com.example.discordpa;
 
-import com.example.discordpa.listeners.*;
+import com.example.discordpa.listeners.CommandsListener;
+import com.example.discordpa.listeners.JavaFeedRequestListener;
+import com.example.discordpa.listeners.QuestionListener;
+import com.example.discordpa.listeners.TopicListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -9,8 +12,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-
-import javax.management.Query;
 
 @Configuration
 public class InitialConfiguration {
@@ -37,7 +38,7 @@ public class InitialConfiguration {
                 .login()
                 .join();
         //Adding the listeners
-        api.updateActivity(ActivityType.LISTENING,"Spotify");
+        api.updateActivity(ActivityType.PLAYING, "Java developing");
         api.addMessageCreateListener(javaFeedRequestListener);
         api.addMessageCreateListener(topicListener);
         api.addMessageCreateListener(questionListener);

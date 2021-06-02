@@ -9,19 +9,18 @@ import java.util.List;
 public class FindByKeyWord {
 
 
-
     //Find all the keyword in the database
 
 
     public static List<Question> findKeyword() throws SQLException {
         List<Question> questions = new ArrayList<>();
-        int id = 0;
-        String infos = null;
+        int id;
+        String infos;
         Connection connection = DBService.getMyConnection();
         String sql = "Select * from questions";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-        String keyword = null;
+        String keyword;
         while (resultSet.next()) {
             id = resultSet.getInt("id");
             infos = resultSet.getString("information");
@@ -32,13 +31,13 @@ public class FindByKeyWord {
     }
 
 
-        //It returns a string that contains all the keywords
+    //It returns a string that contains all the keywords
     public static String listAllKeywords() throws SQLException {
         List<Question> questions = findKeyword();
-        String build ="";
+        StringBuilder build = new StringBuilder();
         for (var question : questions) {
-                build=build+" `"+question.getKeyword()+"` ";
+            build.append(" `").append(question.getKeyword()).append("` ");
         }
-        return build;
+        return build.toString();
     }
 }
